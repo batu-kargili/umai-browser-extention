@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>DuvarAI Extension</title>
+  <style>
+    body {
+      margin: 0;
+      width: 340px;
+      font-family: "Segoe UI", Tahoma, sans-serif;
+      color: #0f172a;
+      background: #f8fafc;
+    }
+    .container {
+      padding: 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .card {
+      border: 1px solid #dbe2ea;
+      border-radius: 12px;
+      background: #ffffff;
+      padding: 12px;
+    }
+    .title {
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+      margin: 0 0 8px 0;
+    }
+    .row {
+      display: flex;
+      justify-content: space-between;
+      gap: 8px;
+      font-size: 12px;
+      margin-bottom: 8px;
+    }
+    .label {
+      color: #475569;
+    }
+    .mono {
+      max-width: 190px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: 11px;
+    }
+    .status {
+      font-size: 12px;
+      font-weight: 600;
+      margin: 0;
+    }
+    .status.ok {
+      color: #166534;
+    }
+    .status.warn {
+      color: #92400e;
+    }
+    .status.error {
+      color: #b91c1c;
+    }
+    .actions {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+    }
+    button {
+      height: 34px;
+      border-radius: 9px;
+      border: 1px solid #cbd5e1;
+      background: #ffffff;
+      color: #0f172a;
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+    button.primary {
+      border-color: #2563eb;
+      background: #2563eb;
+      color: #ffffff;
+    }
+    button:hover {
+      filter: brightness(0.98);
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="card">
+      <p class="title">DuvarAI Organization Connection</p>
+      <div class="row">
+        <span class="label">Tenant</span>
+        <span id="tenantValue" class="mono">-</span>
+      </div>
+      <div class="row">
+        <span class="label">Ingest</span>
+        <span id="endpointValue" class="mono">-</span>
+      </div>
+      <p id="statusText" class="status warn">Checking status...</p>
+    </div>
+
+    <div class="actions">
+      <button id="refreshButton" type="button">Refresh</button>
+      <button id="disconnectButton" type="button">Disconnect</button>
+    </div>
+
+    <button id="connectButton" type="button" class="primary">Connect Organization</button>
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>

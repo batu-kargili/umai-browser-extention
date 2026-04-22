@@ -1,0 +1,79 @@
+{
+  "type": "object",
+  "properties": {
+    "tenantId": {
+      "type": "string",
+      "description": "DuvarAI tenant identifier."
+    },
+    "environment": {
+      "type": "string",
+      "enum": ["prod", "stage"],
+      "description": "Target environment for event ingestion."
+    },
+    "ingestBaseUrl": {
+      "type": "string",
+      "description": "Base URL for extension event ingest API."
+    },
+    "policyUrl": {
+      "type": "string",
+      "description": "Policy pack URL."
+    },
+    "controlCenterUrl": {
+      "type": "string",
+      "description": "Control Center base URL used by popup connect flow."
+    },
+    "userEmail": {
+      "type": "string",
+      "description": "Authenticated user email attached to extension events."
+    },
+    "userIdpSubject": {
+      "type": "string",
+      "description": "Identity provider subject attached to extension events."
+    },
+    "userDisplayName": {
+      "type": "string",
+      "description": "Display name attached to extension events payload."
+    },
+    "deviceToken": {
+      "type": "string",
+      "description": "Device credential used by uploader."
+    },
+    "deviceId": {
+      "type": "string",
+      "description": "Optional fixed device ID."
+    },
+    "captureMode": {
+      "type": "string",
+      "enum": ["metadata_only", "full_content"],
+      "description": "Payload capture mode."
+    },
+    "retentionLocalDays": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 30,
+      "description": "Local queue retention in days."
+    },
+    "debug": {
+      "type": "boolean",
+      "description": "Enable verbose diagnostics in console."
+    },
+    "allowedDomains": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Optional domain allowlist."
+    },
+    "breakGlass": {
+      "type": "object",
+      "properties": {
+        "enabled": {
+          "type": "boolean"
+        },
+        "codeHash": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "tenantId": "acme-bank",
+  "environment": "prod",
+  "ingestBaseUrl": "https://duvarai.example.com",
+  "policyUrl": "https://duvarai.example.com/v1/ext/policy",
+  "controlCenterUrl": "https://duvarai-controlcenter.example.com",
+  "userEmail": "analyst@acme.com",
+  "userIdpSubject": "auth0|1234567890",
+  "userDisplayName": "Jane Analyst",
+  "deviceToken": "replace-with-device-token",
+  "captureMode": "metadata_only",
+  "retentionLocalDays": 7,
+  "debug": false,
+  "allowedDomains": [
+    "chatgpt.com",
+    "chat.openai.com",
+    "gemini.google.com",
+    "claude.ai"
+  ]
+}

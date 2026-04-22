@@ -1,0 +1,41 @@
+{
+  "version": "2026-02-24.1",
+  "default_action": "allow",
+  "rules": [
+    {
+      "id": "block_secrets",
+      "enabled": true,
+      "match": {
+        "dlp_tags_any": ["SECRET_TOKEN", "SECRET_PRIVATE_KEY", "SECRET_BEARER_TOKEN"]
+      },
+      "action": {
+        "type": "block"
+      },
+      "message": "Sensitive secret detected. Remove credentials before sending."
+    },
+    {
+      "id": "justify_pii",
+      "enabled": true,
+      "match": {
+        "dlp_tags_any": ["PII_EMAIL", "PII_PHONE"]
+      },
+      "action": {
+        "type": "justify",
+        "min_chars": 10
+      },
+      "message": "Possible PII detected. Provide justification to continue."
+    },
+    {
+      "id": "redact_financial",
+      "enabled": true,
+      "match": {
+        "dlp_tags_any": ["PII_CREDITCARD", "PII_IBAN", "PII_IBAN_TR"]
+      },
+      "action": {
+        "type": "redact",
+        "strategy": "mask"
+      },
+      "message": "Financial identifier detected and redacted before sending."
+    }
+  ]
+}
