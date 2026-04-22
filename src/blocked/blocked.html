@@ -1,0 +1,186 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>UMAI Browser Security</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --bg: #f3f5f9;
+      --panel: #ffffff;
+      --ink: #111827;
+      --muted: #475569;
+      --border: #d6dee8;
+      --accent: #0f766e;
+      --danger: #b91c1c;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: "Segoe UI", Tahoma, sans-serif;
+      background:
+        radial-gradient(circle at top, rgba(15, 118, 110, 0.14), transparent 32%),
+        linear-gradient(180deg, #f8fafc 0%, var(--bg) 100%);
+      color: var(--ink);
+    }
+
+    main {
+      width: min(780px, calc(100vw - 32px));
+      margin: 40px auto;
+      padding: 28px;
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      background: rgba(255, 255, 255, 0.96);
+      box-shadow: 0 30px 80px rgba(15, 23, 42, 0.08);
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 12px;
+      border-radius: 999px;
+      background: rgba(15, 118, 110, 0.08);
+      color: var(--accent);
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      margin: 18px 0 10px;
+      font-size: clamp(28px, 4vw, 40px);
+      line-height: 1.05;
+    }
+
+    p {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    .panel {
+      margin-top: 22px;
+      padding: 18px;
+      border-radius: 18px;
+      border: 1px solid var(--border);
+      background: #f8fafc;
+    }
+
+    .panel + .panel {
+      margin-top: 14px;
+    }
+
+    .label {
+      margin-bottom: 6px;
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .value {
+      font-size: 15px;
+      font-weight: 600;
+      word-break: break-word;
+    }
+
+    .value.url {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: 13px;
+    }
+
+    .reason {
+      color: var(--danger);
+      font-weight: 600;
+    }
+
+    .approved-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 10px;
+      margin-top: 14px;
+    }
+
+    .approved-link {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 12px 14px;
+      border-radius: 14px;
+      border: 1px solid var(--border);
+      background: var(--panel);
+      color: var(--ink);
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    .approved-link:hover {
+      border-color: rgba(15, 118, 110, 0.35);
+      transform: translateY(-1px);
+    }
+
+    .empty {
+      margin-top: 12px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    @media (max-width: 640px) {
+      main {
+        margin: 18px auto;
+        padding: 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <div class="eyebrow">UMAI Browser Security</div>
+    <h1>Shadow AI access blocked</h1>
+    <p id="summary">
+      This AI site is not approved by your organization. Use an approved assistant instead.
+    </p>
+
+    <section class="panel">
+      <div class="label">Blocked Host</div>
+      <div id="blockedHost" class="value">-</div>
+    </section>
+
+    <section class="panel">
+      <div class="label">Requested URL</div>
+      <div id="blockedUrl" class="value url">-</div>
+    </section>
+
+    <section class="panel">
+      <div class="label">Guardrail Status</div>
+      <div id="guardMode" class="value">-</div>
+    </section>
+
+    <section class="panel">
+      <div class="label">Policy Reason</div>
+      <div id="policyReason" class="value reason">-</div>
+    </section>
+
+    <section class="panel">
+      <div class="label">Approved Assistants</div>
+      <p>Open one of the approved destinations below.</p>
+      <div id="approvedLinks" class="approved-grid"></div>
+      <p id="emptyApproved" class="empty" hidden>
+        No approved AI domains are available yet. Connect the extension to your organization from the UMAI popup.
+      </p>
+    </section>
+  </main>
+
+  <script src="blocked.js"></script>
+</body>
+</html>

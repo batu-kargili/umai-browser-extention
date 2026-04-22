@@ -1,6 +1,6 @@
 import type { RuntimeState } from "../shared/types";
 
-const DEFAULT_CONTROL_CENTER_URL = "https://duvarai-controlcenter-442107147924.europe-west3.run.app";
+const DEFAULT_CONTROL_CENTER_URL = "https://umai-controlcenter-442107147924.europe-west3.run.app";
 const CONTROL_CENTER_CONNECT_PATH = "/extension/connect";
 
 interface InternalMessageResponse {
@@ -58,16 +58,27 @@ async function loadRuntimeState(): Promise<RuntimeState | null> {
 function renderState(state: RuntimeState | null): void {
   const tenantValue = byId("tenantValue");
   const endpointValue = byId("endpointValue");
+  const guardValue = byId("guardValue");
+  const approvedValue = byId("approvedValue");
 
   if (!state || !state.configured || !state.config) {
     tenantValue.textContent = "-";
     endpointValue.textContent = "-";
+    guardValue.textContent = "Fail-closed";
+    approvedValue.textContent = "Connect organization";
     setStatus("Not connected. Use Connect organization.", "warn");
     return;
   }
 
   tenantValue.textContent = state.config.tenantId;
   endpointValue.textContent = state.config.ingestBaseUrl;
+  guardValue.textContent = state.config.browserSecurity.enabled
+    ? state.config.browserSecurity.mode === "audit"
+      ? "Audit"
+      : "Enforce"
+    : "Off";
+  approvedValue.textContent =
+    state.config.allowedDomains.length > 0 ? state.config.allowedDomains.join(", ") : "-";
   setStatus("Connected to organization.", "ok");
 }
 

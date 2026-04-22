@@ -18,6 +18,11 @@ const buildEntries = [
     format: "iife"
   },
   {
+    entry: "src/blocked/blocked.ts",
+    outfile: "blocked.js",
+    format: "iife"
+  },
+  {
     entry: "src/content/sites/chatgpt.ts",
     outfile: "content_chatgpt.js",
     format: "iife"
@@ -54,6 +59,7 @@ async function buildOnce() {
 async function copyStaticFiles() {
   await copyFile(resolve(rootDir, "manifest.json"), resolve(distDir, "manifest.json"));
   await copyFile(resolve(rootDir, "schema.json"), resolve(distDir, "schema.json"));
+  await copyFile(resolve(rootDir, "src/blocked/blocked.html"), resolve(distDir, "blocked.html"));
   await copyFile(resolve(rootDir, "src/popup/popup.html"), resolve(distDir, "popup.html"));
 }
 

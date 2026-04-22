@@ -3,7 +3,7 @@
   "properties": {
     "tenantId": {
       "type": "string",
-      "description": "DuvarAI tenant identifier."
+      "description": "UMAI tenant identifier."
     },
     "environment": {
       "type": "string",
@@ -63,6 +63,28 @@
         "type": "string"
       },
       "description": "Optional domain allowlist."
+    },
+    "browserSecurity": {
+      "type": "object",
+      "description": "Browser guardrails that detect and block Shadow AI domains outside the approved allowlist.",
+      "properties": {
+        "enabled": {
+          "type": "boolean",
+          "description": "Enable browser-level Shadow AI protection."
+        },
+        "mode": {
+          "type": "string",
+          "enum": ["audit", "enforce"],
+          "description": "Audit-only or enforced blocking mode for browser guardrails."
+        },
+        "shadowAiDomains": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Additional AI domains treated as Shadow AI unless explicitly approved."
+        }
+      }
     },
     "breakGlass": {
       "type": "object",

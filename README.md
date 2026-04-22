@@ -6,11 +6,12 @@ Chrome Extension (Manifest V3) for enterprise governance of browser-based AI usa
 - Gemini (`gemini.google.com`)
 - Claude (`claude.ai`)
 
-The extension captures prompt/response activity, enforces local policy decisions at submit time, and uploads tamper-evident events to DuvarAI ingest.
+The extension captures prompt/response activity, enforces local policy decisions at submit time, blocks Shadow AI navigation at the browser layer, and uploads tamper-evident events to UMAI ingest.
 
 ## What is implemented
 
 - Managed config via `chrome.storage.managed` (`schema.json`)
+- Browser guardrails for Shadow AI domains with fail-closed enforcement before page use
 - Prompt governance decisions: `allow`, `warn`, `block`, `redact`, `justify`
 - Local DLP scanning (secrets, email, phone, credit card/Luhn, IBAN)
 - Policy engine with first-match-wins semantics
@@ -27,11 +28,15 @@ src/
   background/
     service_worker.ts
     config.ts
+    browser_security.ts
     policy_cache.ts
     events.ts
     queue.ts
     uploader.ts
     auth.ts
+  blocked/
+    blocked.ts
+    blocked.html
   popup/
     popup.ts
     popup.html
@@ -102,22 +107,33 @@ Defined in `schema.json`:
 - `retentionLocalDays`
 - `debug`
 - `allowedDomains`
+- `browserSecurity`
+  - `enabled`
+  - `mode` (`audit` or `enforce`)
+  - `shadowAiDomains`
 
 Example:
 
 ```json
 {
-  "tenantId": "acme-bank",
+  "tenantId": "00000000-0000-0000-0000-000000000001",
   "environment": "prod",
-  "ingestBaseUrl": "https://duvarai.example.com",
-  "policyUrl": "https://duvarai.example.com/v1/ext/policy",
-  "controlCenterUrl": "https://duvarai-controlcenter.example.com",
+  "ingestBaseUrl": "https://umai.example.com",
+  "policyUrl": "https://umai.example.com/v1/ext/policy",
+  "controlCenterUrl": "https://umai-controlcenter.example.com",
   "deviceToken": "device-token-from-admin",
   "captureMode": "metadata_only",
   "retentionLocalDays": 7,
-  "debug": false
+  "debug": false,
+  "browserSecurity": {
+    "enabled": true,
+    "mode": "enforce",
+    "shadowAiDomains": ["copilot.microsoft.com", "perplexity.ai", "poe.com"]
+  }
 }
 ```
+
+`allowedDomains` remains the explicit approval list. Browser security treats any known AI domain outside that list as Shadow AI and either logs it (`audit`) or redirects the tab to the UMAI blocked page (`enforce`). When the extension is not connected to an organization, known AI sites are blocked fail-closed until connect completes.
 
 ## Policy pack format
 
@@ -156,6 +172,7 @@ Example policy response from `policyUrl`:
 ## Notes
 
 - This is an MVP with UI-layer capture and selector-based adapters.
+- Browser guardrails run on tab navigation, so unmanaged AI sites are blocked before prompt submission.
 - Selector drift can degrade capture quality when provider UIs change.
 - Network payload interception is intentionally not used.
 - Managed policy remains supported for centrally enforced enterprise rollout.

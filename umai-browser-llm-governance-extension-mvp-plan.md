@@ -1,6 +1,6 @@
 # Browser LLM Governance Extension — MVP Development Plan (Codex-Ready)
 
-> **Goal:** Build a **Chrome Extension (Manifest V3)** that **logs and governs** browser-only usage of **ChatGPT / Gemini / Claude** (prompts, attachment metadata, and received answers) and streams events into **DuvarAI Ledger**.
+> **Goal:** Build a **Chrome Extension (Manifest V3)** that **logs and governs** browser-only usage of **ChatGPT / Gemini / Claude** (prompts, attachment metadata, and received answers) and streams events into **UMAI Ledger**.
 >
 > **MVP approach:** **UI-layer capture + policy enforcement at submit time** (content scripts + DOM observation).  
 > **Do not depend** on network interception for prompt/answer bodies in MV3.
@@ -16,7 +16,7 @@
   - Claude web
 - Govern at prompt submit:
   - **allow / warn / block / redact / justify**
-- Log to DuvarAI:
+- Log to UMAI:
   - append-only events + **tamper-evident hash chain**
   - encryption-in-transit + **optional payload encryption**
 - Enterprise deployment:
@@ -42,7 +42,7 @@
 - **Shared libs**  
   Policy engine, DLP scanning, redaction, hashing, types.
 
-### Backend Components (DuvarAI MVP)
+### Backend Components (UMAI MVP)
 - `/v1/ext/bootstrap` — tenant config + policy metadata + keys
 - `/v1/ext/policy` — policy pack (ETag)
 - `/v1/ext/events` — batch ingest
@@ -134,7 +134,7 @@ Use **managed storage** so admins can set config without user changes.
 
 ---
 
-## 5) Data Model — DuvarAI Ledger Friendly
+## 5) Data Model — UMAI Ledger Friendly
 
 ### 5.1 Event Envelope
 All events share:
@@ -402,7 +402,7 @@ All events share:
 
 ---
 
-## 10) Backend MVP (DuvarAI) — Minimal Requirements
+## 10) Backend MVP (UMAI) — Minimal Requirements
 
 ### 10.1 `/v1/ext/bootstrap` (GET)
 Returns:
@@ -504,7 +504,7 @@ Storage:
 
 ```json
 {
-  "name": "DuvarAI Browser LLM Governance (MVP)",
+  "name": "UMAI Browser LLM Governance (MVP)",
   "version": "0.1.0",
   "manifest_version": 3,
   "permissions": ["storage", "tabs"],
@@ -577,5 +577,4 @@ export interface SiteAdapter {
 ---
 
 **End of document**
-
 

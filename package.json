@@ -2,7 +2,7 @@
   "name": "umai-extention",
   "version": "0.1.0",
   "private": true,
-  "description": "DuvarAI browser extension MVP for LLM governance on ChatGPT, Gemini, and Claude.",
+  "description": "UMAI browser extension MVP for LLM governance on ChatGPT, Gemini, and Claude.",
   "type": "module",
   "scripts": {
     "build": "node ./scripts/build.mjs",
