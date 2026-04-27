@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "manifest_version": 3,
   "description": "Enterprise browser governance for ChatGPT, Gemini, and Claude with UMAI policy enforcement.",
-  "permissions": ["storage", "tabs", "alarms"],
+  "permissions": ["storage", "tabs", "alarms", "identity", "identity.email"],
   "host_permissions": [
     "http://localhost:8080/*",
     "https://umai-service-442107147924.europe-west3.run.app/*",

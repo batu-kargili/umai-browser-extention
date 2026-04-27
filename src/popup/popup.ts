@@ -57,12 +57,14 @@ async function loadRuntimeState(): Promise<RuntimeState | null> {
 
 function renderState(state: RuntimeState | null): void {
   const tenantValue = byId("tenantValue");
+  const userValue = byId("userValue");
   const endpointValue = byId("endpointValue");
   const guardValue = byId("guardValue");
   const approvedValue = byId("approvedValue");
 
   if (!state || !state.configured || !state.config) {
     tenantValue.textContent = "-";
+    userValue.textContent = "-";
     endpointValue.textContent = "-";
     guardValue.textContent = "Fail-closed";
     approvedValue.textContent = "Connect organization";
@@ -71,6 +73,7 @@ function renderState(state: RuntimeState | null): void {
   }
 
   tenantValue.textContent = state.config.tenantId;
+  userValue.textContent = state.config.userEmail ?? state.config.userDisplayName ?? "-";
   endpointValue.textContent = state.config.ingestBaseUrl;
   guardValue.textContent = state.config.browserSecurity.enabled
     ? state.config.browserSecurity.mode === "audit"

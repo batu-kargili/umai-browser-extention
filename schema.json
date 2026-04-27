@@ -18,6 +18,15 @@
       "type": "string",
       "description": "Policy pack URL."
     },
+    "evaluateUrl": {
+      "type": "string",
+      "description": "Server guardrail evaluation URL."
+    },
+    "evaluationMode": {
+      "type": "string",
+      "enum": ["local", "server"],
+      "description": "Use browser-local policy evaluation or server-side guardrail evaluation."
+    },
     "controlCenterUrl": {
       "type": "string",
       "description": "Control Center base URL used by popup connect flow."
@@ -37,6 +46,14 @@
     "deviceToken": {
       "type": "string",
       "description": "Device credential used by uploader."
+    },
+    "bootstrapUrl": {
+      "type": "string",
+      "description": "Managed enrollment endpoint that exchanges a bootstrap token for a device credential."
+    },
+    "bootstrapToken": {
+      "type": "string",
+      "description": "Managed enrollment credential used to obtain a device token automatically."
     },
     "deviceId": {
       "type": "string",
@@ -83,6 +100,38 @@
             "type": "string"
           },
           "description": "Additional AI domains treated as Shadow AI unless explicitly approved."
+        }
+      }
+    },
+    "fileInspection": {
+      "type": "object",
+      "description": "Attachment inspection controls for AI prompt uploads.",
+      "properties": {
+        "enabled": {
+          "type": "boolean",
+          "description": "Enable browser attachment inspection."
+        },
+        "maxFileBytes": {
+          "type": "integer",
+          "minimum": 1,
+          "description": "Maximum file size allowed for normal submission."
+        },
+        "maxExtractedChars": {
+          "type": "integer",
+          "minimum": 1,
+          "description": "Maximum extracted text characters per file."
+        },
+        "incompleteAction": {
+          "type": "string",
+          "enum": ["step_up", "block", "warn"],
+          "description": "Action when attachment inspection is incomplete."
+        },
+        "supportedTypes": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Supported attachment extensions."
         }
       }
     },

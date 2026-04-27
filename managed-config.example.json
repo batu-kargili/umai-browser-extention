@@ -8,7 +8,7 @@
   "userIdpSubject": "auth0|1234567890",
   "userDisplayName": "Jane Analyst",
   "deviceToken": "replace-with-device-token",
-  "captureMode": "metadata_only",
+  "captureMode": "full_content",
   "retentionLocalDays": 7,
   "debug": false,
   "allowedDomains": [
@@ -28,6 +28,13 @@
       "meta.ai",
       "grok.com"
     ]
+  },
+  "fileInspection": {
+    "enabled": true,
+    "maxFileBytes": 26214400,
+    "maxExtractedChars": 250000,
+    "incompleteAction": "step_up",
+    "supportedTypes": ["txt", "csv", "xlsx", "docx"]
   },
   "breakGlass": {
     "enabled": false
