@@ -1,6 +1,6 @@
 import type { RuntimeState } from "../shared/types";
 
-const DEFAULT_CONTROL_CENTER_URL = "https://umai-controlcenter-442107147924.europe-west3.run.app";
+const DEFAULT_CONTROL_CENTER_URL = "https://pocttconsole.umaisolutions.com";
 const CONTROL_CENTER_CONNECT_PATH = "/extension/connect";
 
 interface InternalMessageResponse {

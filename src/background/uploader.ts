@@ -8,8 +8,11 @@ let backoffMs = 2000;
 
 function computeEndpoint(baseUrl: string): string {
   const trimmed = baseUrl.replace(/\/+$/, "");
-  if (trimmed.endsWith("/v1/ext/events")) {
+  if (trimmed.endsWith("/ext/events")) {
     return trimmed;
+  }
+  if (trimmed.endsWith("/api/public") || trimmed.endsWith("/api/v1")) {
+    return `${trimmed}/ext/events`;
   }
   return `${trimmed}/v1/ext/events`;
 }
@@ -45,7 +48,7 @@ export async function flushQueue(): Promise<void> {
     const eventIds = batch.map((item) => item.event.event_id);
     await markAttempted(eventIds);
 
-    const response = await fetch(computeEndpoint(config.ingestBaseUrl), {
+    const response = await fetch(config.eventsUrl ?? computeEndpoint(config.ingestBaseUrl), {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

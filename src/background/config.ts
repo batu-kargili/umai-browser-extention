@@ -35,7 +35,7 @@ const DEFAULT_FILE_INSPECTION: FileInspectionConfig = {
 const DEVICE_ID_KEY = "umai_device_id_v1";
 const LOCAL_DEV_CONFIG_KEY = "umai_dev_config_v1";
 const BOOTSTRAP_STATE_KEY = "umai_bootstrap_state_v1";
-const DEFAULT_CONTROL_CENTER_URL = "https://umai-controlcenter-442107147924.europe-west3.run.app";
+const DEFAULT_CONTROL_CENTER_URL = "https://pocttconsole.umaisolutions.com";
 const DEFAULT_BOOTSTRAP_TIMEOUT_MS = 15000;
 const ENABLE_BUILTIN_DUMMY_CONFIG = false;
 
@@ -43,6 +43,7 @@ const BUILTIN_DUMMY_CONFIG: ManagedConfig = {
   tenantId: "00000000-0000-0000-0000-000000000001",
   environment: "stage",
   ingestBaseUrl: "http://localhost:8080/api",
+  eventsUrl: "http://localhost:8080/api/v1/ext/events",
   policyUrl: "http://localhost:8080/api/v1/ext/policy",
   evaluateUrl: "http://localhost:8080/api/v1/ext/evaluate",
   evaluationMode: "local",
@@ -341,6 +342,7 @@ async function validateManagedConfig(raw: ManagedConfig): Promise<RuntimeState> 
   const environment =
     raw.environment === "prod" || raw.environment === "stage" ? raw.environment : undefined;
   const ingestBaseUrl = isNonEmptyString(raw.ingestBaseUrl) ? raw.ingestBaseUrl.trim() : "";
+  const eventsUrl = isNonEmptyString(raw.eventsUrl) ? raw.eventsUrl.trim() : "";
   const policyUrl = isNonEmptyString(raw.policyUrl) ? raw.policyUrl.trim() : "";
   const evaluateUrl = isNonEmptyString(raw.evaluateUrl) ? raw.evaluateUrl.trim() : "";
   const evaluationMode = raw.evaluationMode === "server" ? "server" : "local";
@@ -380,6 +382,13 @@ async function validateManagedConfig(raw: ManagedConfig): Promise<RuntimeState> 
   }
   if (!ingestBaseUrl) {
     issues.push("ingestBaseUrl is required.");
+  }
+  if (eventsUrl) {
+    try {
+      new URL(eventsUrl);
+    } catch (_error) {
+      issues.push("eventsUrl must be a valid URL.");
+    }
   }
   if (!policyUrl) {
     issues.push("policyUrl is required.");
@@ -441,6 +450,7 @@ async function validateManagedConfig(raw: ManagedConfig): Promise<RuntimeState> 
     tenantId,
     environment: environment as "prod" | "stage",
     ingestBaseUrl,
+    eventsUrl: eventsUrl || undefined,
     policyUrl,
     evaluateUrl: evaluateUrl || undefined,
     evaluationMode,
@@ -531,6 +541,7 @@ export async function initConfigModule(): Promise<RuntimeState> {
         (changes.tenantId ||
           changes.environment ||
           changes.policyUrl ||
+          changes.eventsUrl ||
           changes.evaluateUrl ||
           changes.evaluationMode ||
           changes.bootstrapUrl ||

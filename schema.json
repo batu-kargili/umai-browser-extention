@@ -14,6 +14,10 @@
       "type": "string",
       "description": "Base URL for extension event ingest API."
     },
+    "eventsUrl": {
+      "type": "string",
+      "description": "Optional explicit extension events ingest URL. Use this when the deployment does not expose the default /v1/ext/events path under ingestBaseUrl."
+    },
     "policyUrl": {
       "type": "string",
       "description": "Policy pack URL."

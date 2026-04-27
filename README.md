@@ -99,6 +99,7 @@ Defined in `schema.json`:
 - `tenantId` (required)
 - `environment` (`prod` or `stage`, required)
 - `ingestBaseUrl` (required)
+- `eventsUrl` (optional explicit ingest endpoint for deployments that do not use `/v1/ext/events`)
 - `policyUrl` (required)
 - `controlCenterUrl` (optional)
 - `deviceToken` (required)
@@ -119,6 +120,7 @@ Example:
   "tenantId": "00000000-0000-0000-0000-000000000001",
   "environment": "prod",
   "ingestBaseUrl": "https://umai.example.com",
+  "eventsUrl": "https://umai.example.com/v1/ext/events",
   "policyUrl": "https://umai.example.com/v1/ext/policy",
   "controlCenterUrl": "https://umai-controlcenter.example.com",
   "deviceToken": "device-token-from-admin",

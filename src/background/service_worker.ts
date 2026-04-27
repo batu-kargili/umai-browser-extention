@@ -33,6 +33,7 @@ const QUEUE_FLUSH_ALARM = "umai_queue_flush";
 const CONTROL_CENTER_CONNECT_PATH = "/extension/connect";
 const TRUSTED_CONTROL_CENTER_ORIGINS = new Set<string>([
   "http://localhost:3000",
+  "https://pocttconsole.umaisolutions.com",
   "https://umai-controlcenter-442107147924.europe-west3.run.app",
   "https://umai-controlcenter-mhkvrwuj2q-ey.a.run.app",
   "https://duvarai-controlcenter-442107147924.europe-west3.run.app",

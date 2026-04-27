@@ -53,6 +53,7 @@ export interface ManagedConfig {
   tenantId?: string;
   environment?: "prod" | "stage";
   ingestBaseUrl?: string;
+  eventsUrl?: string;
   policyUrl?: string;
   evaluateUrl?: string;
   evaluationMode?: EvaluationMode;
@@ -77,6 +78,7 @@ export interface RuntimeConfig {
   tenantId: string;
   environment: "prod" | "stage";
   ingestBaseUrl: string;
+  eventsUrl?: string;
   policyUrl: string;
   evaluateUrl?: string;
   evaluationMode: EvaluationMode;

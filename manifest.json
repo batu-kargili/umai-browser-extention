@@ -1,11 +1,12 @@
 {
-  "name": "UMAI Browser LLM Governance (MVP)",
-  "version": "0.1.0",
+  "name": "UMAI Browser LLM Governance",
+  "version": "0.1.1",
   "manifest_version": 3,
   "description": "Enterprise browser governance for ChatGPT, Gemini, and Claude with UMAI policy enforcement.",
   "permissions": ["storage", "tabs", "alarms", "identity", "identity.email"],
   "host_permissions": [
     "http://localhost:8080/*",
+    "https://pocttconsole.umaisolutions.com/*",
     "https://umai-service-442107147924.europe-west3.run.app/*",
     "https://umai-service-mhkvrwuj2q-ey.a.run.app/*",
     "https://chatgpt.com/*",
@@ -24,6 +25,7 @@
   "externally_connectable": {
     "matches": [
       "http://localhost:3000/*",
+      "https://pocttconsole.umaisolutions.com/*",
       "https://umai-controlcenter-442107147924.europe-west3.run.app/*",
       "https://umai-controlcenter-mhkvrwuj2q-ey.a.run.app/*"
     ]
